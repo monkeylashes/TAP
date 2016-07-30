@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackPlayer.cs" />
+    <Compile Include="Assets\Scripts\EnemArrow.cs" />
+    <Compile Include="Assets\Scripts\EyeScript.cs" />
     <Compile Include="Assets\Scripts\TeleportArrow.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />

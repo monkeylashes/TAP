@@ -13,21 +13,22 @@ public class AttackPlayer : MonoBehaviour {
     State currentState = State.Wonder;
     Vector3 currentTarget = Vector3.zero;
     float speed = 4f;
-    GameObject player;
-    public GameObject arrow;
-
+    public GameObject basicArrow;
+    private GameObject arrow;
+    private GameObject eyes;
+    private GameObject enemy;
+    
     // Use this for initialization
     void Start () {
         currentTarget = transform.position;
-        currentState = State.Chase;
-        player = GameObject.FindGameObjectWithTag("Player");        
+        currentState = State.Wonder;        
+        eyes = transform.GetChild(0).gameObject;
+        eyes.GetComponent<EyeScript>().subscribers += SawEnemy;
+        arrow = basicArrow.transform.GetChild(0).gameObject;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-                // Evaluate what we see
-        var eyes = transform.GetChild(0);
         
         if (currentState == State.Wonder)
         {
@@ -44,8 +45,7 @@ public class AttackPlayer : MonoBehaviour {
         }
 
         if(currentState == State.Chase)
-        {                   
-            currentTarget = player.transform.position;
+        {   
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
             transform.LookAt(currentTarget);
 
@@ -57,10 +57,8 @@ public class AttackPlayer : MonoBehaviour {
 
         if(currentState == State.Attack)
         {
-            arrow = (GameObject)Instantiate(Resources.Load("BasicArrow"), transform.position, Quaternion.identity);
-            arrow.GetComponent<Rigidbody>().isKinematic = false;
-            arrow.GetComponent<Rigidbody>().velocity = 3.0f * 1.5f * arrow.transform.TransformDirection(Vector3.forward);
-            arrow.GetComponent<Arrow>().inFlight = true;
+            currentTarget = enemy.transform.position;
+            StartCoroutine(FireArrow());
 
             if (Vector3.Distance(transform.position, currentTarget) > 6.0f)
             {
@@ -68,4 +66,46 @@ public class AttackPlayer : MonoBehaviour {
             }
         }        
 	}
+
+    IEnumerator FireArrow()
+    {
+        Vector3 relativePos = currentTarget - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(relativePos);        
+        
+                
+        if(arrow == null)
+        {
+            arrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
+            arrow.transform.parent = basicArrow.transform;            
+            basicArrow.GetComponent<Rigidbody>().AddForce(Random.Range(8f, 15.0f) * 1.5f * arrow.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
+            basicArrow.GetComponent<Rigidbody>().isKinematic = false;
+            arrow.GetComponent<Rigidbody>().isKinematic = false;
+            arrow.GetComponent<Arrow>().inFlight = true;
+        }        
+
+        if (arrow.GetComponent<Rigidbody>().velocity == Vector3.zero)
+        {
+            arrow.GetComponent<Arrow>().inFlight = false;
+            arrow.GetComponent<Arrow>().collided = true;
+            arrow.GetComponent<Arrow>().DestroyArrow(1f);
+
+            arrow = null;
+            yield return new WaitForSeconds(1);
+        }       
+        
+    }
+
+    void SawEnemy(GameObject enemy)
+    {
+        // Evaluate what we see    
+        if(enemy.CompareTag("Player"))
+        {
+            Debug.Log("Seen Player!");
+            currentTarget = enemy.transform.position;
+            currentState = State.Chase;
+            this.enemy = enemy;
+        }
+
+
+    }
 }

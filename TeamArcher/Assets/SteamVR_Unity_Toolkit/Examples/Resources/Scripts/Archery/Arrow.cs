@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour
     [HideInInspector]
     public bool inFlight = false;
 
-    private bool collided = false;
+    public bool collided = false;
     private Rigidbody rigidBody;
     private GameObject arrowHolder;
     private Vector3 originalPosition;
@@ -92,7 +92,7 @@ public class Arrow : MonoBehaviour
         this.transform.localScale = originalScale;
     }
 
-    private void DestroyArrow(float time)
+    public void DestroyArrow(float time)
     {
         Destroy(arrowHolder, time);
         Destroy(this.gameObject, time);
