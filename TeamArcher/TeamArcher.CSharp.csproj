@@ -72,7 +72,10 @@
     <Compile Include="Assets\Scripts\AttackPlayer.cs" />
     <Compile Include="Assets\Scripts\EnemArrow.cs" />
     <Compile Include="Assets\Scripts\EyeScript.cs" />
+    <Compile Include="Assets\Scripts\LockRotation.cs" />
+    <Compile Include="Assets\Scripts\TakeDamage.cs" />
     <Compile Include="Assets\Scripts\TeleportArrow.cs" />
+    <Compile Include="Assets\Scripts\sun.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
@@ -188,6 +191,7 @@
     <Compile Include="Assets\TheLabRenderer\Scripts\openvr_api.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Cargo asset set\Readme.txt" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Blit.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_BlitFlip.shader" />
@@ -211,6 +215,8 @@
     <None Include="Assets\TheLabRenderer\Shaders\vr_skybox.shader" />
     <None Include="Assets\TheLabRenderer\Shaders\vr_standard.shader" />
     <None Include="Assets\TheLabRenderer\Shaders\vr_utils.cginc" />
+    <None Include="Assets\uIntelliSense\Editor\Resources\uintellisense-data.xml" />
+    <None Include="Assets\uIntelliSense\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

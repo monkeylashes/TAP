@@ -66,6 +66,7 @@
     <Compile Include="Assets\Plugins\openvr_api.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Cargo asset set\Readme.txt" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Blit.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_BlitFlip.shader" />
@@ -89,6 +90,8 @@
     <None Include="Assets\TheLabRenderer\Shaders\vr_skybox.shader" />
     <None Include="Assets\TheLabRenderer\Shaders\vr_standard.shader" />
     <None Include="Assets\TheLabRenderer\Shaders\vr_utils.cginc" />
+    <None Include="Assets\uIntelliSense\Editor\Resources\uintellisense-data.xml" />
+    <None Include="Assets\uIntelliSense\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
