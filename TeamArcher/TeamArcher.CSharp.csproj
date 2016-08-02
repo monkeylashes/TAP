@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\EnemArrow.cs" />
     <Compile Include="Assets\Scripts\EyeScript.cs" />
     <Compile Include="Assets\Scripts\LockRotation.cs" />
+    <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\TakeDamage.cs" />
     <Compile Include="Assets\Scripts\TeleportArrow.cs" />
     <Compile Include="Assets\Scripts\sun.cs" />

@@ -16,7 +16,7 @@ public class TeleportArrow : Arrow {
         }
         var pos = collision.contacts[0].point;
         //Debug.Log("player position: " + player.transform.position + " teleporting to: " + pos);
-        player.transform.position = pos;
+        player.GetComponent<Move>().SetTargetPosition(pos);
                 
         if (inFlight)
         {
