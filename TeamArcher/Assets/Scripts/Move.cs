@@ -6,13 +6,13 @@ public class Move : MonoBehaviour
 
     private Vector3 targetPosition;
 
-    public float speed = 5f;
+    public float speed = 10f;
     public float startTime;
     private float journeyLength;
-
+    
     // Use this for initialization
     void Start()
-    {
+    {        
         startTime = Time.time;
         targetPosition = transform.position;
         journeyLength = Vector3.Distance(transform.position, targetPosition);
@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
     void Update()
     {
         if (targetPosition != transform.position)
-        {
+        {            
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
             transform.position = Vector3.Lerp(transform.position, targetPosition, fracJourney);
@@ -32,7 +32,7 @@ public class Move : MonoBehaviour
     public void SetTargetPosition(Vector3 pos)
     {
         startTime = Time.time;
-        targetPosition = pos;
+        targetPosition = pos;        
         journeyLength = Vector3.Distance(transform.position, targetPosition);
     }
 }
