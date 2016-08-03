@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Move : MonoBehaviour {
+public class Move : MonoBehaviour
+{
 
     private Vector3 targetPosition;
 
@@ -9,21 +10,24 @@ public class Move : MonoBehaviour {
     public float startTime;
     private float journeyLength;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         startTime = Time.time;
         targetPosition = transform.position;
         journeyLength = Vector3.Distance(transform.position, targetPosition);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	    if(targetPosition != transform.position)
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (targetPosition != transform.position)
         {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, fracJourney);
         }
-	}
+    }
 
     public void SetTargetPosition(Vector3 pos)
     {
