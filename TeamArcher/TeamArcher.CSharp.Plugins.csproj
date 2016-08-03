@@ -61,11 +61,17 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\openvr_api.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Changelog.txt" />
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Editor\Resources\NMB.txt" />
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Editor\Resources\SNMB.txt" />
     <None Include="Assets\Cargo asset set\Readme.txt" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Blit.shader" />

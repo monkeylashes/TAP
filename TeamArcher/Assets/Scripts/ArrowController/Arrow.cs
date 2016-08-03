@@ -95,6 +95,6 @@ public class Arrow : MonoBehaviour
     public void DestroyArrow(float time)
     {
         Destroy(arrowHolder, time);
-        Destroy(this.gameObject, time);
+        Destroy(gameObject, time);
     }
 }

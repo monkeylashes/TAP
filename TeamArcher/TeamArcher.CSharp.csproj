@@ -61,6 +61,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="TeamArcher.CSharp.Plugins.csproj">
@@ -69,9 +72,99 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\AuthoritativeAndClientPrediction\Scripts\ForgeExample_AuthoritativeController.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\AuthoritativeAndClientPrediction\Scripts\ForgeExample_AuthoritativeControllerBody.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\AuthoritativeAndClientPrediction\Scripts\ForgeExample_AuthoritativeControllerFloats.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Cache\ForgeDemoCache.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\ChangeOwner\ForgeChangeOwner.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\ClientTimeout\Scripts\ForgeExample_TimeoutDisconnect.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Error Handling\Scripts\ForgeExample_ErrorHandling.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Hello Cube\Scripts\ForgeExample_MakePlayer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Hello Cube\Scripts\ForgeExample_Move.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Pure RPC\Scripts\ForgeExample_PureRPC.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Spawn Players\Scripts\ForgeExample_SpawnPlayers.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Transport Object\Scripts\ForgeExample_DoObjectTransport.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Transport Object\Scripts\ForgeExample_ObjectToTransport.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Write Custom\Scripts\ForgeExample_WriteCustom.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Examples\Write Raw\Scripts\ForgeExample_WriteRaw.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Minigames\Zombies\Scripts\ForgePlayer_Zombie.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Minigames\Zombies\Scripts\ForgeZombie.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Minigames\Zombies\Scripts\ForgeZombieBullet.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Minigames\Zombies\Scripts\ForgeZombiePowerup.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Minigames\Zombies\Scripts\ForgeZombieSpawner.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking Examples\Unit\UnitRPC\UnitRPC.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\ForgeUtilities\Chat\Scripts\ForgeChat.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Bluetooth\BluetoothAdapterWrapper.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Bluetooth\BluetoothDeviceWrapper.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Bluetooth\BluetoothServerSocketWrapper.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Bluetooth\BluetoothSocketWrapper.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\BMSByte.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\BeardedMath.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\CrossPlatformUDP.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\HostInfo.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\INetworkingSerialized.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\MessageInfo.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetRef.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetWorker.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkException.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkSerialized.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\Networking.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkingPlayer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkingSerialized.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkingStream.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\NetworkingStreamRPC.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\ObjectMapper.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\Task.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\TypeExtensions.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\UDP\ClientManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\UDP\Header.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\UDP\PacketManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Core\WriteCustomMapping.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\DataStore\Cache.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\CachedUdpClient.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\DefaultClientTCP.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\DefaultServerTCP.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\SocketPolicyServer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\TCPProcess.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\UnityHandle.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\WinMobileClient.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\WinMobileServer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Default\WinMobileWorker.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Enums\NetworkCallers.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Enums\NetworkReceivers.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\HTTP\Encryptor.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\HTTP\HTTP.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\MasterServer\ForgeMasterServer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\MasterServer\ForgeMasterServerPing.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Security\IBRPCIntercept.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\TransportObject\ForgeTransportObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\MainThreadManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\NetWorkerKiller.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\NetworkedMonoBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\NetworkingManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\SimpleNetworkedMonoBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\UnityEventObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\MainScripts\Unity\UnitySceneManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\HeadlessLinuxTest\Autostart.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\HeadlessLinuxTest\StartHeadlessLinux.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\Logo\PoweredByForge.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\QuickServerBrowser\ServerListItem.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\QuickServerBrowser\ServerListManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\QuickStartMenu\ForgeClickToRegister.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\Scripts\QuickStartMenu\StartGame.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Forge Networking\SimpleJSON.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\Arrow.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\ArrowNotch.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\ArrowPool.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\ArrowSpawner.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\BowAim.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\BowAnimation.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\BowHandle.cs" />
+    <Compile Include="Assets\Scripts\ArrowController\Follow.cs" />
     <Compile Include="Assets\Scripts\AttackPlayer.cs" />
     <Compile Include="Assets\Scripts\EnemArrow.cs" />
     <Compile Include="Assets\Scripts\EyeScript.cs" />
+    <Compile Include="Assets\Scripts\FPSControllerNOVR.cs" />
     <Compile Include="Assets\Scripts\LockRotation.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\TakeDamage.cs" />
@@ -111,13 +204,6 @@
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_TrackedObject.cs" />
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_UpdatePoses.cs" />
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Utils.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\Arrow.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\ArrowNotch.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\ArrowSpawner.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\BowAim.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\BowAnimation.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\BowHandle.cs" />
-    <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Archery\Follow.cs" />
     <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\Breakable_Cube.cs" />
     <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\ButtonReactor.cs" />
     <Compile Include="Assets\SteamVR_Unity_Toolkit\Examples\Resources\Scripts\ControlReactor.cs" />
@@ -192,6 +278,9 @@
     <Compile Include="Assets\TheLabRenderer\Scripts\openvr_api.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Changelog.txt" />
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Editor\Resources\NMB.txt" />
+    <None Include="Assets\Bearded Man Studios Inc\Forge Networking\Editor\Resources\SNMB.txt" />
     <None Include="Assets\Cargo asset set\Readme.txt" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Blit.shader" />

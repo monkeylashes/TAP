@@ -173,7 +173,6 @@ public class AttackPlayer : MonoBehaviour {
                 {
                     arrow.GetComponent<Arrow>().inFlight = false;
                     arrow.GetComponent<Arrow>().collided = true;
-                    arrow.GetComponent<Arrow>().DestroyArrow(5f);
                 }                
                 
                 arrow = null;
