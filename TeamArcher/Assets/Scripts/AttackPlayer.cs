@@ -20,20 +20,19 @@ public class AttackPlayer : MonoBehaviour {
     State previousState = State.Wonder;
     Vector3 currentTarget = Vector3.zero;
     public float speed = 4f;
-    public GameObject basicArrow;
+   
     private GameObject arrow;
     private GameObject eyes;
     private GameObject enemy;
     public Animation animation;
-    
+    private GameObject basicArrow;
     // Use this for initialization
     void Start () {
         currentTarget = transform.position;
         currentState = State.Wonder;        
         eyes = transform.GetChild(0).gameObject;
         eyes.GetComponent<EyeScript>().onPlayerSeen += SawEnemy;
-        eyes.GetComponent<EyeScript>().onLoseSightOfPlayer += EnemyLost;
-        arrow = basicArrow.transform.GetChild(0).gameObject;
+        eyes.GetComponent<EyeScript>().onLoseSightOfPlayer += EnemyLost;   
     }
 
     void UpdateAnimation()
@@ -146,14 +145,11 @@ public class AttackPlayer : MonoBehaviour {
         if (currentState == State.Attack && enemy != null)
         {
             currentTarget = enemy.transform.position;
-            //StartCoroutine(FireArrow());
             
             if (arrow == null && (Time.fixedTime - lastFireTime) > 1.333f)
             {
                 Vector3 relativePos = currentTarget - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
-
-                //DestroyObject(basicArrow, 1f);
 
                 basicArrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
                 basicArrow.tag = "Arrow";
@@ -166,55 +162,23 @@ public class AttackPlayer : MonoBehaviour {
 
                 arrow.GetComponent<Arrow>().inFlight = true;
             }
-
-            if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero)
+            if (basicArrow)
             {
-                if (arrow)
-                {
+                if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero && arrow)
+                {                    
                     arrow.GetComponent<Arrow>().inFlight = false;
                     arrow.GetComponent<Arrow>().collided = true;
                     arrow.GetComponent<Arrow>().DestroyArrow(5f);
-                }                
-                
-                arrow = null;
+                    arrow = null;
+                }
             }
+            
 
             if (Vector3.Distance(transform.position, currentTarget) > 6.0f)
             {
                 currentState = State.Wonder;
             }
         }
-    }
-
-    IEnumerator FireArrow()
-    {
-        Vector3 relativePos = currentTarget - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(relativePos);        
-        
-                
-        if(arrow == null)
-        {            
-            DestroyObject(basicArrow, 1f);
-
-            basicArrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
-            arrow = basicArrow.transform.GetChild(0).gameObject;
-                  
-            basicArrow.GetComponent<Rigidbody>().AddForce(Random.Range(15.0f, 20.0f) * 1.5f * basicArrow.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
-            basicArrow.GetComponent<Rigidbody>().isKinematic = false;
-            
-            arrow.GetComponent<Arrow>().inFlight = true;
-        }        
-
-        if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero)
-        {
-            arrow.GetComponent<Arrow>().inFlight = false;
-            arrow.GetComponent<Arrow>().collided = true;
-            arrow.GetComponent<Arrow>().DestroyArrow(1f);
-
-            arrow = null;
-            yield return new WaitForSeconds(5);
-        }       
-        
     }
 
     void SawEnemy(GameObject enemy)

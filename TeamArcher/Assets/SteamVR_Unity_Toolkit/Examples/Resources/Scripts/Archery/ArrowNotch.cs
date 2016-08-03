@@ -10,6 +10,7 @@ public class ArrowNotch : MonoBehaviour
     private void Start()
     {
         arrow = this.transform.FindChild("Arrow").gameObject;
+        
         obj = this.GetComponent<VRTK_InteractableObject>();
     }
 

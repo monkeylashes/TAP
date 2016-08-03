@@ -16,7 +16,7 @@ public class EyeScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("saw" + collider.gameObject.tag);
+        //Debug.Log("saw" + collider.gameObject.tag);
         if (onPlayerSeen != null)
         {
             onPlayerSeen(collider.gameObject);
@@ -25,20 +25,11 @@ public class EyeScript : MonoBehaviour {
 
     void OnTriggerExit(Collider collider)
     {
-        Debug.Log("not saw" + collider.gameObject.tag);
+        //Debug.Log("not saw" + collider.gameObject.tag);
         if (onLoseSightOfPlayer != null)
         {
             onLoseSightOfPlayer(collider.gameObject);
         }
     }
 
-    //void OnTriggerStay(Collider collider)
-    //{
-    //    Debug.Log("still seeing" + collider.gameObject.tag);
-    //    if (subscribers != null)
-    //    {
-    //        subscribers(collider.gameObject);
-    //    }
-
-    //}
 }

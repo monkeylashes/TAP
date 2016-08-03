@@ -13,6 +13,7 @@ public class Arrow : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Vector3 originalScale;
+    private GameObject trail;
 
     public void SetArrowHolder(GameObject holder)
     {
@@ -28,19 +29,33 @@ public class Arrow : MonoBehaviour
 
     public void Fired()
     {
+        if (trail)
+        {            
+            trail.SetActive(true);
+        }
         DestroyArrow(maxArrowLife);
     }
 
     public void ResetArrow()
     {
+        if (trail)
+        {
+            trail.SetActive(false);
+        }
         collided = true;
-        inFlight = false;
+        inFlight = false;     
         RecreateNotch();
         ResetTransform();
+     
     }
 
     private void Start()
     {
+        if (transform.childCount > 1) {
+            trail = transform.GetChild(1).gameObject;
+            trail.SetActive(false);
+        }        
+
         rigidBody = this.GetComponent<Rigidbody>();
         SetOrigns();
     }
