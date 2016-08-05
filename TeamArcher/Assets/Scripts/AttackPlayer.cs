@@ -105,7 +105,7 @@ public class AttackPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        currentTarget.y = 0.0123f;
+        //currentTarget.y = 0.0235f;
         if (animation)
         {
             UpdateAnimation();
@@ -143,36 +143,46 @@ public class AttackPlayer : MonoBehaviour {
     void FixedUpdate()
     {
         if (currentState == State.Attack && enemy != null)
-        {
-            currentTarget = enemy.transform.position;
-            
-            if (arrow == null && (Time.fixedTime - lastFireTime) > 1.333f)
+        {                                   
+            if(Vector3.Distance(transform.position, currentTarget) < 1f)
             {
+                currentTarget = enemy.transform.position;
                 Vector3 relativePos = currentTarget - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
-
-                basicArrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
-                basicArrow.tag = "Arrow";
-                lastFireTime = Time.fixedTime;
-                arrow = basicArrow.transform.GetChild(0).gameObject;
-                arrow.tag = "Arrow";
-
-                basicArrow.GetComponent<Rigidbody>().AddForce(Random.Range(15.0f, 20.0f) * 1.5f * basicArrow.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
-                basicArrow.GetComponent<Rigidbody>().isKinematic = false;
-
-                arrow.GetComponent<Arrow>().inFlight = true;
+                enemy.GetComponent<Rigidbody>().AddForce(Random.Range(.3f, 1f) * transform.forward, ForceMode.Impulse);
             }
-            if (basicArrow)
+            else
             {
-                if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero && arrow)
-                {                    
-                    arrow.GetComponent<Arrow>().inFlight = false;
-                    arrow.GetComponent<Arrow>().collided = true;
-                    arrow.GetComponent<Arrow>().DestroyArrow(5f);
-                    arrow = null;
+                if (arrow == null && (Time.fixedTime - lastFireTime) > 1.333f)
+                {
+                    Vector3 relativePos = currentTarget - transform.position;
+                    Quaternion rotation = Quaternion.LookRotation(relativePos);
+
+                    basicArrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
+                    basicArrow.tag = "Arrow";
+                    lastFireTime = Time.fixedTime;
+                    arrow = basicArrow.transform.GetChild(0).gameObject;
+                    arrow.tag = "Arrow";
+
+                    basicArrow.GetComponent<Rigidbody>().AddForce(Random.Range(15.0f, 40.0f) * 1.5f * basicArrow.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
+                    basicArrow.GetComponent<Rigidbody>().isKinematic = false;
+
+                    arrow.GetComponent<Arrow>().inFlight = true;
+                }
+                if (basicArrow)
+                {
+                    if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero && arrow)
+                    {
+                        arrow.GetComponent<Arrow>().inFlight = false;
+                        arrow.GetComponent<Arrow>().collided = true;
+                        arrow.GetComponent<Arrow>().DestroyArrow(5f);
+                        
+                        Destroy(basicArrow, 5f);
+                        arrow = null;
+                    }
                 }
             }
-            
+
 
             if (Vector3.Distance(transform.position, currentTarget) > 6.0f)
             {
