@@ -1,2 +1,9 @@
 TeamArcher/Library/
 TeamArcher/obj/
+*.chk
+*.log
+*.suo
+*.ide
+*.info
+*.mdb
+*.dwlt
