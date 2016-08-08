@@ -1,0 +1,69 @@
+Initialize engine version: 5.4.0f3 (a6d8d714de6f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon (TM) R9 390 Series (ID=0x67b1)
+    Vendor:   ATI
+    VRAM:     8169 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\ProBuilderCore-Unity5.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\ProBuilderCore-Unity5.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\ProBuilderMeshOps-Unity5.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\ProBuilderMeshOps-Unity5.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\KDTree.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\KDTree.dll into Unity Child Domain
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\Triangle.dll (this message is harmless)
+Loading C:\src\TAP\TeamArcher\tap_Data\Managed\Triangle.dll into Unity Child Domain
+- Completed reload, in  0.048 seconds
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\src\TAP\TeamArcher\tap_Data\Managed\System.dll (this message is harmless)
+OnLevelWasLoaded was found on NetworkingManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 375)
+
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 3840x2160 60Hz; virtual: 8640x2669 at 0,-509
+<RI> Initialized touch support.
+VR: OpenVR Error! OpenVR failed initialization with error code VRInitError_Init_AnotherAppLaunching: "Another app was already launching (117)"!
+ 
+(Filename:  Line: 286)
+
+VR: OpenVR Error! OpenVR failed initialization with error code VRInitError_Init_AnotherAppLaunching: "Another app was already launching (117)"!
+ 
+(Filename:  Line: 286)
+
+UnloadTime: 0.881561 ms
+[Valve Camera] Setting MSAA to 4x
+
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+[Valve Camera] Adaptive Quality:
+1.  0x0 0.8
+2.  0x0 0.8579044
+3.  0x0 0.92
+4.  0x0 0.9865901
+5.  0x0 1.058 (Default)
+6.  0x0 1.134579
+7.  0x0 1.2167
+8.  0x0 1.304765
+9.  0x0 1.399205
+
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 2404 -> priority: 1 

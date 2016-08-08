@@ -105,7 +105,7 @@ public class AttackPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //currentTarget.y = 0.0235f;
+        
         if (animation)
         {
             UpdateAnimation();
@@ -121,13 +121,15 @@ public class AttackPlayer : MonoBehaviour {
             }
             else
             {
+                currentTarget.y = 0.0235f;
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
                 transform.LookAt(currentTarget);
             }
         }
 
         if(currentState == State.Chase)
-        {   
+        {
+            currentTarget.y = 0.0235f;
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
             transform.LookAt(currentTarget);
 
@@ -143,10 +145,10 @@ public class AttackPlayer : MonoBehaviour {
     void FixedUpdate()
     {
         if (currentState == State.Attack && enemy != null)
-        {                                   
+        {
+            currentTarget = enemy.transform.position;                                   
             if(Vector3.Distance(transform.position, currentTarget) < 1f)
-            {
-                currentTarget = enemy.transform.position;
+            {                
                 Vector3 relativePos = currentTarget - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
                 enemy.GetComponent<Rigidbody>().AddForce(Random.Range(.3f, 1f) * transform.forward, ForceMode.Impulse);
