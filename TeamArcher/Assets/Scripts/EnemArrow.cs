@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using VRTK.Examples.Archery;
 
-public class EnemArrow : Arrow {
+public class EnemArrow : Arrow
+{
 
     public GameObject player = null;
+
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,11 +25,5 @@ public class EnemArrow : Arrow {
         {
             ResetArrow();
         }
-    }
-
-
-    public void ResetArrow()
-    {        
-        inFlight = false;        
     }
 }

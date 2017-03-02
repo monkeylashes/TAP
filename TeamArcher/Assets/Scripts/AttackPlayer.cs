@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using VRTK.Examples.Archery;
 
 public class AttackPlayer : MonoBehaviour {
 
@@ -20,12 +21,14 @@ public class AttackPlayer : MonoBehaviour {
     State previousState = State.Wonder;
     Vector3 currentTarget = Vector3.zero;
     public float speed = 4f;
-   
-    private GameObject arrow;
+
+    private GameObject spit;
+    public GameObject spitPrefab;
+
     private GameObject eyes;
     private GameObject enemy;
     public Animation animation;
-    private GameObject basicArrow;
+    
     // Use this for initialization
     void Start () {
         currentTarget = transform.position;
@@ -105,7 +108,7 @@ public class AttackPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //currentTarget.y = 0.0235f;
+        
         if (animation)
         {
             UpdateAnimation();
@@ -146,6 +149,7 @@ public class AttackPlayer : MonoBehaviour {
         {                                   
             if(Vector3.Distance(transform.position, currentTarget) < 1f)
             {
+                // hit player if close enough to reach
                 currentTarget = enemy.transform.position;
                 Vector3 relativePos = currentTarget - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
@@ -153,33 +157,17 @@ public class AttackPlayer : MonoBehaviour {
             }
             else
             {
-                if (arrow == null && (Time.fixedTime - lastFireTime) > 1.333f)
+                // spit at player
+                if (Time.fixedTime - lastFireTime > 1.333f)
                 {
                     Vector3 relativePos = currentTarget - transform.position;
                     Quaternion rotation = Quaternion.LookRotation(relativePos);
 
-                    basicArrow = (GameObject)Instantiate(Resources.Load("Prefabs/BasicArrow"), transform.position, rotation);
-                    basicArrow.tag = "Arrow";
+                    spit = Instantiate(spitPrefab, transform.position, rotation);                    
                     lastFireTime = Time.fixedTime;
-                    arrow = basicArrow.transform.GetChild(0).gameObject;
-                    arrow.tag = "Arrow";
-
-                    basicArrow.GetComponent<Rigidbody>().AddForce(Random.Range(15.0f, 40.0f) * 1.5f * basicArrow.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
-                    basicArrow.GetComponent<Rigidbody>().isKinematic = false;
-
-                    arrow.GetComponent<Arrow>().inFlight = true;
-                }
-                if (basicArrow)
-                {
-                    if (basicArrow.GetComponent<Rigidbody>().velocity == Vector3.zero && arrow)
-                    {
-                        arrow.GetComponent<Arrow>().inFlight = false;
-                        arrow.GetComponent<Arrow>().collided = true;
-                        arrow.GetComponent<Arrow>().DestroyArrow(5f);
-                        
-                        Destroy(basicArrow, 5f);
-                        arrow = null;
-                    }
+                    spit.GetComponent<Rigidbody>().AddForce(Random.Range(15.0f, 40.0f) * 1.5f * spit.transform.TransformDirection(Vector3.forward), ForceMode.Impulse);
+                    spit.GetComponent<Rigidbody>().isKinematic = false;
+                    Destroy(spit, 1f);
                 }
             }
 
@@ -189,7 +177,7 @@ public class AttackPlayer : MonoBehaviour {
                 currentState = State.Wonder;
             }
         }
-    }
+    }    
 
     void SawEnemy(GameObject enemy)
     {

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class TeleportArrow : Arrow {
+using VRTK.Examples.Archery;
+public class TeleportArrow : Arrow
+{
 
     public GameObject player = null;    
 
@@ -12,7 +13,6 @@ public class TeleportArrow : Arrow {
         {
             //Debug.Log("Player was null. Setting with tag.");
             player = GameObject.FindGameObjectWithTag("Player");
-
         }
         var pos = collision.contacts[0].point;
         //Debug.Log("player position: " + player.transform.position + " teleporting to: " + pos);
