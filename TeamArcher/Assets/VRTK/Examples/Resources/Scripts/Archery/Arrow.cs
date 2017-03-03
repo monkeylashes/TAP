@@ -8,6 +8,8 @@
         [HideInInspector]
         public bool inFlight = false;
 
+        public GameObject trail;
+
         private bool collided = false;
         private Rigidbody rigidBody;
         private GameObject arrowHolder;
@@ -29,6 +31,11 @@
 
         public void Fired()
         {
+            if(trail != null)
+            {
+                trail.SetActive(true);
+            }
+
             DestroyArrow(maxArrowLife);
         }
 
