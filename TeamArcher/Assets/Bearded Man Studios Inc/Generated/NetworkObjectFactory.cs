@@ -4,9 +4,9 @@ using MainThreadManager = BeardedManStudios.Forge.Networking.Unity.MainThreadMan
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	public partial class NetworkObjectFactory : INetworkObjectFactory
+	public partial class NetworkObjectFactory : NetworkObjectFactoryBase
 	{
-		public void NetworkCreateObject(NetWorker networker, int identity, uint id, FrameStream frame, Action<NetworkObject> callback)
+		public override void NetworkCreateObject(NetWorker networker, int identity, uint id, FrameStream frame, Action<NetworkObject> callback)
 		{
 			if (networker.IsServer)
 			{
@@ -23,6 +23,14 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			{
 				switch (identity)
 				{
+					case BasicArrowNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new BasicArrowNetworkObject(networker, id, frame);
+						break;
+					case BasicBowNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new BasicBowNetworkObject(networker, id, frame);
+						break;
 					case ChatManagerNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new ChatManagerNetworkObject(networker, id, frame);
@@ -35,20 +43,33 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new ExampleProximityPlayerNetworkObject(networker, id, frame);
 						break;
+					case HeadNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new HeadNetworkObject(networker, id, frame);
+						break;
+					case LeftHandNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new LeftHandNetworkObject(networker, id, frame);
+						break;
 					case NetworkCameraNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new NetworkCameraNetworkObject(networker, id, frame);
 						break;
+					case RightHandNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new RightHandNetworkObject(networker, id, frame);
+						break;
+					case TeleportArrowNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new TeleportArrowNetworkObject(networker, id, frame);
+						break;
 				}
 
-				if (callback != null)
+				if (!availableCallback)
+					base.NetworkCreateObject(networker, identity, id, frame, callback);
+				else if (callback != null)
 					callback(obj);
 			});
-
-			if (!availableCallback && callback != null)
-			{
-				callback(obj);
-			}
 		}
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS

@@ -1,6 +1,7 @@
 ﻿namespace VRTK.Examples.Archery
 {
     using UnityEngine;
+    using BeardedManStudios.Forge.Networking.Unity;
 
     public class Arrow : MonoBehaviour
     {
@@ -97,6 +98,8 @@
         {
             Destroy(arrowHolder, time);
             Destroy(gameObject, time);
+            NetworkManager.Destroy(gameObject, time);
+            
         }
     }
 }

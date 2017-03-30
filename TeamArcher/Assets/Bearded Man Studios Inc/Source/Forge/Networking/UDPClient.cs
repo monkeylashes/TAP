@@ -12,7 +12,7 @@
 |                                Bearded Man Studios, Inc.     |
 |                                                              |
 |  This source code, project files, and associated files are   |
-|  copyrighted by Bearded Man Studios, Inc. (2012-2016) and    |
+|  copyrighted by Bearded Man Studios, Inc. (2012-2017) and    |
 |  may not be redistributed without written permission.        |
 |                                                              |
 \------------------------------+------------------------------*/
@@ -30,6 +30,12 @@ namespace BeardedManStudios.Forge.Networking
 {
 	public class UDPClient : BaseUDP, IClient
 	{
+		/// <summary>
+		/// The max amount of tries that this client will attempt to connect to the server
+		/// where there is 3 seconds between each attempt
+		/// </summary>
+		public const int CONNECT_TRIES = 10;
+
 		/// <summary>
 		/// The hash that is / was validated by the server
 		/// </summary>
@@ -51,6 +57,8 @@ namespace BeardedManStudios.Forge.Networking
 		private List<UDPPacketComposer> pendingComposers = new List<UDPPacketComposer>();
 
 		public NatHolePunch nat = new NatHolePunch();
+
+		public event BaseNetworkEvent connectAttemptFailed;
 
 		public override void Send(FrameStream frame, bool reliable = false)
 		{
@@ -130,15 +138,21 @@ namespace BeardedManStudios.Forge.Networking
 				//Set the port
 				SetPort(clientPort);
 
+				int connectCounter = 0;
 				Task.Queue(() =>
 				{
 					do
 					{
 						// Send the accept headers to the server to validate
 						Client.Send(connectHeader, connectHeader.Length, Server.IPEndPointHandle);
-
 						Thread.Sleep(3000);
-					} while (!headerExchanged && IsBound);
+					} while (!headerExchanged && IsBound && ++connectCounter < CONNECT_TRIES);
+
+					if (connectCounter >= CONNECT_TRIES)
+					{
+						if (connectAttemptFailed != null)
+							connectAttemptFailed();
+					}
 				});
 			}
 			catch (Exception e)
@@ -325,16 +339,11 @@ namespace BeardedManStudios.Forge.Networking
 
 		/// <summary>
 		/// Request the ping from the server (pingReceived will be triggered if it receives it)
-		/// 
 		/// This is not a reliable call
 		/// </summary>
 		public override void Ping()
 		{
-			BMSByte payload = new BMSByte();
-			long ticks = DateTime.UtcNow.Ticks;
-			payload.BlockCopy<long>(ticks, sizeof(long));
-			Ping pingFrame = new Ping(Time.Timestep, false, payload, Receivers.Server, MessageGroupIds.PING, false);
-			Send(pingFrame);
+			Send(GeneratePing());
 		}
 	}
 }

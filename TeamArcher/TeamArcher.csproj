@@ -82,6 +82,9 @@
     <Reference Include="Pathfinding.Poly2Tri">
       <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
+    <Reference Include="ForgeNetworkingCommon">
+      <HintPath>Assets\Bearded Man Studios Inc\Plugins\ForgeNetworkingCommon.dll</HintPath>
+    </Reference>
     <Reference Include="ProBuilderCore-Unity5">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
@@ -238,14 +241,26 @@
     <Compile Include="Assets\Bearded Man Studios Inc\Examples\Proximity\ExampleProximitySpawn.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\NetworkManager.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\NetworkObjectFactory.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\BasicArrowBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\BasicArrowNetworkObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\BasicBowBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\BasicBowNetworkObject.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\ChatManagerBehavior.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\ChatManagerNetworkObject.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\CubeForgeGameBehavior.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\CubeForgeGameNetworkObject.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\ExampleProximityPlayerBehavior.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\ExampleProximityPlayerNetworkObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\HeadBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\HeadNetworkObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\LeftHandBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\LeftHandNetworkObject.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\NetworkCameraBehavior.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\NetworkCameraNetworkObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\RightHandBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\RightHandNetworkObject.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\TeleportArrowBehavior.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Generated\UserGenerated\TeleportArrowNetworkObject.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Modules\Chat\ChatMaker.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Modules\Chat\ChatManager.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Modules\Stand Alone Chat\StandAloneChat.cs" />
@@ -262,18 +277,19 @@
     <Compile Include="Assets\Bearded Man Studios Inc\Scripts\NetworkBehavior.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Scripts\NetworkObjectFactory.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Scripts\NetworkObjectFactoryBase.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Scripts\Server Browser\ServerBrowser.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Scripts\UnityObjectMapper.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\ArgumentParser.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\BMSByte.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\BMSExtensions.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\BeardedMath.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\DataStore\Cache.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Logging\BMSLog.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Logging\IBMSLogger.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\BaseTCP.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\BaseUDP.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\CachedUdpClient.cs" />
-    <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\DataStore\Cache.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\Enums\Receivers.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\Exceptions.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\Filters\IConnectionFilter.cs" />
@@ -327,13 +343,12 @@
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Forge\Networking\Websockets.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Logging\ForgeLogger.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\SimpleJSON.cs" />
-    <Compile Include="Assets\Bearded Man Studios Inc\Source\Templating\GeneratedInterpolAttribute.cs" />
-    <Compile Include="Assets\Bearded Man Studios Inc\Source\Templating\GeneratedRPCAttribute.cs" />
-    <Compile Include="Assets\Bearded Man Studios Inc\Source\Templating\GeneratedRPCVariableNamesAttribute.cs" />
-    <Compile Include="Assets\Bearded Man Studios Inc\Source\Templating\TemplateSystem.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Threading\IThreadRunner.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Threading\Task.cs" />
     <Compile Include="Assets\Bearded Man Studios Inc\Source\Vector.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\WIP\Modules\LobbySystem\LobbyManager.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\WIP\Modules\LobbySystem\LobbyPlayer.cs" />
+    <Compile Include="Assets\Bearded Man Studios Inc\WIP\Modules\LobbySystem\LobbyPlayerItem.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
@@ -343,13 +358,21 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\Scripts\AttackPlayer.cs" />
+    <Compile Include="Assets\Scripts\BasicArrowNetworkUpdate.cs" />
+    <Compile Include="Assets\Scripts\BasicBowNetworkUpdate.cs" />
     <Compile Include="Assets\Scripts\CustomArrow.cs" />
     <Compile Include="Assets\Scripts\EnemArrow.cs" />
     <Compile Include="Assets\Scripts\EyeScript.cs" />
+    <Compile Include="Assets\Scripts\HeadNetworkUpdate.cs" />
+    <Compile Include="Assets\Scripts\LeftHandNetworkUpdate.cs" />
     <Compile Include="Assets\Scripts\LockRotation.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
+    <Compile Include="Assets\Scripts\NetworkSpawn.cs" />
+    <Compile Include="Assets\Scripts\RightHandNetworkUpdate.cs" />
     <Compile Include="Assets\Scripts\TakeDamage.cs" />
     <Compile Include="Assets\Scripts\TeleportArrow.cs" />
+    <Compile Include="Assets\Scripts\TeleportArrowNetworkUpdate.cs" />
+    <Compile Include="Assets\Scripts\TrailControl.cs" />
     <Compile Include="Assets\Scripts\sun.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
@@ -700,6 +723,7 @@
     <None Include="Assets\Bearded Man Studios Inc\Editor\Resources\BMS_Forge_Editor\NetworkObjectFactoryTemplate.txt" />
     <None Include="Assets\Bearded Man Studios Inc\Editor\Resources\BMS_Forge_Editor\NetworkObjectTemplate.txt" />
     <None Include="Assets\Bearded Man Studios Inc\Editor\Resources\BMS_Forge_Editor\StandAloneNetworkBehaviorTemplate.txt" />
+    <None Include="Assets\Bearded Man Studios Inc\OnlineDocumentation.txt" />
     <None Include="Assets\Cargo asset set\Readme.txt" />
     <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\ProCore\ProBuilder\About\Credits.txt" />

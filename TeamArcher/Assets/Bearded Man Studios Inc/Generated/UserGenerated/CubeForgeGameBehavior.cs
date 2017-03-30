@@ -8,6 +8,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[[\"minimum\", \"maximum\", \"data\"][\"typebyte\", \"position\"][\"position\"][\"message\"]]")]
 	public abstract partial class CubeForgeGameBehavior : NetworkBehavior
 	{
+		public const byte RPC_INITIALIZE_MAP = 0 + 5;
+		public const byte RPC_CREATE_PRIMITIVE = 1 + 5;
+		public const byte RPC_DESTROY_PRIMITIVE = 2 + 5;
+		public const byte RPC_TEST_ME = 3 + 5;
+		
 		public CubeForgeGameNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
@@ -46,13 +51,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		private void DestroyGameObject()
 		{
-			MainThreadManager.Run(() => { Destroy(gameObject); });
+			MainThreadManager.Run(() => { try { Destroy(gameObject); } catch { } });
 			networkObject.onDestroy -= DestroyGameObject;
 		}
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode)
 		{
 			return new CubeForgeGameNetworkObject(networker, this, createCode);
+		}
+
+		protected override void InitializedTransform()
+		{
+			networkObject.SnapInterpolations();
 		}
 
 		/// <summary>

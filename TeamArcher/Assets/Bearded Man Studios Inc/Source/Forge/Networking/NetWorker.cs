@@ -12,7 +12,7 @@
 |                                Bearded Man Studios, Inc.     |
 |                                                              |
 |  This source code, project files, and associated files are   |
-|  copyrighted by Bearded Man Studios, Inc. (2012-2016) and    |
+|  copyrighted by Bearded Man Studios, Inc. (2012-2017) and    |
 |  may not be redistributed without written permission.        |
 |                                                              |
 \------------------------------+------------------------------*/
@@ -44,8 +44,11 @@ namespace BeardedManStudios.Forge.Networking
 
 		public static IPEndPoint ResolveHost(string host, ushort port)
 		{
+			// Check for any localhost type addresses
 			if (host == "0.0.0.0" || host == "127.0.0.1" || host == "::0")
 				return new IPEndPoint(IPAddress.Parse(host), port);
+			else if (host == "localhost")
+				return new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
 
 			IPHostEntry ipHostInfo = Dns.GetHostEntry(host);
 			IPAddress ipAddress = ipHostInfo.AddressList[0];
@@ -66,15 +69,20 @@ namespace BeardedManStudios.Forge.Networking
 			}
 		}
 
-		public static List<BroadcastEndpoints> LocalConnections { get; private set; }
+		public static List<BroadcastEndpoints> LocalEndpoints { get; private set; }
 
-		public static bool ExitingApplication { get; private set; }
+		public static bool EndingSession { get; private set; }
 
 		#region Delegates
 		/// <summary>
 		/// A base delegate for any kind of network event
 		/// </summary>
 		public delegate void BaseNetworkEvent();
+
+		/// <summary>
+		/// Used to fire events that relate to a broadcast endpoint
+		/// </summary>
+		public delegate void BroadcastEndpointEvent(BroadcastEndpoints endpoint);
 
 		/// <summary>
 		/// A base delegate for any kind of network ping event
@@ -111,6 +119,11 @@ namespace BeardedManStudios.Forge.Networking
 
 		#region Events
 		/// <summary>
+		/// Occurs when a local server has been located by calling the static SetupLocalUdpListings method
+		/// </summary>
+		public static event BroadcastEndpointEvent localServerLocated;
+
+		/// <summary>
 		/// Occurs when tcp listener has successfully bound
 		/// </summary>
 		public event BaseNetworkEvent bindSuccessful;
@@ -146,6 +159,11 @@ namespace BeardedManStudios.Forge.Networking
 		public event PlayerEvent playerDisconnected;
 
 		/// <summary>
+		/// Occurs when a player has timed out
+		/// </summary>
+		public event PlayerEvent playerTimeout;
+
+		/// <summary>
 		/// Occurs when the player has connected and been validated by the server
 		/// </summary>
 		public event PlayerEvent playerAccepted;
@@ -164,11 +182,6 @@ namespace BeardedManStudios.Forge.Networking
 		/// Occurs when a binary message is received over the network from a remote machine
 		/// </summary>
 		public event BinaryFrameEvent binaryMessageReceived;
-
-		/// <summary>
-		/// Occurs when a binary message is received and its router byte is the byte for Rpc
-		/// </summary>
-		public event BinaryFrameEvent rpcMessageReceived;
 
 		/// <summary>
 		/// Occurs when a text message is received over the network from a remote machine
@@ -597,6 +610,12 @@ namespace BeardedManStudios.Forge.Networking
 				playerDisconnected(player);
 		}
 
+		protected void OnPlayerTimeout(NetworkingPlayer player)
+		{
+			if (playerTimeout != null)
+				playerTimeout(player);
+		}
+
 		/// <summary>
 		/// A wrapper for the playerAccepted event call that chindren of this can call
 		/// </summary>
@@ -706,7 +725,9 @@ namespace BeardedManStudios.Forge.Networking
 					ExecuteRouterAction(routerId, targetObject, (Binary)frame, player);
 				}
 				else if (routerId == RouterIds.NETWORK_OBJECT_ROUTER_ID)
+				{
 					NetworkObject.CreateNetworkObject(this, player, (Binary)frame);
+				}
 				else if (routerId == RouterIds.ACCEPT_MULTI_ROUTER_ID)
 					NetworkObject.CreateMultiNetworkObject(this, player, (Binary)frame);
 				else if (binaryMessageReceived != null)
@@ -804,21 +825,35 @@ namespace BeardedManStudios.Forge.Networking
 			});
 		}
 
-		public static void ApplicationExit()
+		public static void EndSession()
 		{
-			ExitingApplication = true;
+			EndingSession = true;
 			CloseLocalListingsClient();
 		}
 
-		public virtual void Ping()
+		protected Ping GeneratePing()
 		{
-
+			BMSByte payload = new BMSByte();
+			long ticks = DateTime.UtcNow.Ticks;
+			payload.BlockCopy<long>(ticks, sizeof(long));
+			return new Ping(Time.Timestep, this is TCPClient, payload, Receivers.Server, MessageGroupIds.PING, this is BaseTCP);
 		}
 
-		protected virtual void Pong(NetworkingPlayer playerRequesting, DateTime time)
+		protected Pong GeneratePong(DateTime time)
 		{
-
+			BMSByte payload = new BMSByte();
+			long ticks = time.Ticks;
+			payload.BlockCopy<long>(ticks, sizeof(long));
+			return new Pong(Time.Timestep, this is TCPClient, payload, Receivers.Target, MessageGroupIds.PONG, this is BaseTCP);
 		}
+
+		/// <summary>
+		/// Request the ping from the server (pingReceived will be triggered if it receives it)
+		/// This is not a reliable call in UDP
+		/// </summary>
+		public abstract void Ping();
+
+		protected virtual void Pong(NetworkingPlayer playerRequesting, DateTime time) { }
 
 		private static void CloseLocalListingsClient()
 		{
@@ -829,30 +864,36 @@ namespace BeardedManStudios.Forge.Networking
 			}
 		}
 
-		public static void SetupLocalUdpListings()
+		/// <summary>
+		/// A method to find all of the local UDP servers and clients on the network
+		/// </summary>
+		public static void RefreshLocalUdpListings(ushort portNumber = DEFAULT_PORT, int responseBuffer = 1000)
 		{
-			if (LocalConnections == null)
-				LocalConnections = new List<BroadcastEndpoints>();
+			// Initialize the list to hold all of the local network endpoints that respond to the request
+			if (LocalEndpoints == null)
+				LocalEndpoints = new List<BroadcastEndpoints>();
 
-			lock (LocalConnections)
+			// Make sure to clear out the existing endpoints
+			lock (LocalEndpoints)
 			{
-				LocalConnections.Clear();
+				LocalEndpoints.Clear();
 			}
 
+			// Create a client to write on the network and discover other clients and servers
 			localListingsClient = new CachedUdpClient(19375);
 			localListingsClient.EnableBroadcast = true;
-			Task.Queue(() => { CloseLocalListingsClient(); }, 1000);
+			Task.Queue(() => { CloseLocalListingsClient(); }, responseBuffer);
 
 			Task.Queue(() =>
 			{
 				IPEndPoint groupEp = default(IPEndPoint);
 				string endpoint = string.Empty;
 
-				localListingsClient.Send(new byte[] { BROADCAST_LISTING_REQUEST_1, BROADCAST_LISTING_REQUEST_2, BROADCAST_LISTING_REQUEST_3 }, 3, new IPEndPoint(IPAddress.Parse("255.255.255.255"), DEFAULT_PORT));
+				localListingsClient.Send(new byte[] { BROADCAST_LISTING_REQUEST_1, BROADCAST_LISTING_REQUEST_2, BROADCAST_LISTING_REQUEST_3 }, 3, new IPEndPoint(IPAddress.Parse("255.255.255.255"), portNumber));
 
 				try
 				{
-					while (localListingsClient != null && !ExitingApplication)
+					while (localListingsClient != null && !EndingSession)
 					{
 						var data = localListingsClient.Receive(ref groupEp, ref endpoint);
 
@@ -863,9 +904,15 @@ namespace BeardedManStudios.Forge.Networking
 						string address = parts[0];
 						ushort port = ushort.Parse(parts[1]);
 						if (data[0] == SERVER_BROADCAST_CODE)
-							LocalConnections.Add(new BroadcastEndpoints(address, port, true));
+						{
+							var ep = new BroadcastEndpoints(address, port, true);
+							LocalEndpoints.Add(ep);
+
+							if (localServerLocated != null)
+								localServerLocated(ep);
+						}
 						else if (data[0] == CLIENT_BROADCAST_CODE)
-							LocalConnections.Add(new BroadcastEndpoints(address, port, false));
+							LocalEndpoints.Add(new BroadcastEndpoints(address, port, false));
 					}
 				}
 				catch { }

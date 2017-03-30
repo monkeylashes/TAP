@@ -12,7 +12,7 @@
 |                                Bearded Man Studios, Inc.     |
 |                                                              |
 |  This source code, project files, and associated files are   |
-|  copyrighted by Bearded Man Studios, Inc. (2012-2016) and    |
+|  copyrighted by Bearded Man Studios, Inc. (2012-2017) and    |
 |  may not be redistributed without written permission.        |
 |                                                              |
 \------------------------------+------------------------------*/
@@ -302,6 +302,9 @@ namespace BeardedManStudios.Forge.Networking
 				// Create the thread that will be listening for new data from connected clients and start its execution
 				Task.Queue(ReadClients);
 
+				// Create the thread that will check for player timeouts
+				Task.Queue(CheckClientTimeout);
+
 				// Do any generic initialization in result of the successful bind
 				OnBindSuccessful();
 
@@ -311,7 +314,7 @@ namespace BeardedManStudios.Forge.Networking
 				Me.Connected = true;
 
 				//Set the port
-				SetPort(port);
+				SetPort((ushort)((IPEndPoint)listener.LocalEndpoint).Port);
 			}
 			catch (Exception e)
 			{
@@ -391,7 +394,7 @@ namespace BeardedManStudios.Forge.Networking
 		private void ReadClients()
 		{
 			// Intentional infinite loop
-			while (IsBound && !NetWorker.ExitingApplication)
+			while (IsBound && !NetWorker.EndingSession)
 			{
 				try
 				{
@@ -503,6 +506,8 @@ namespace BeardedManStudios.Forge.Networking
 								{
 									lock (Players[i].MutexLock)
 									{
+										Players[i].Ping();
+
 										// Get the frame that was sent by the client, the client
 										// does send masked data
 										//TODO: THIS IS CAUSING ISSUES!!! WHY!?!?!!?
@@ -543,6 +548,39 @@ namespace BeardedManStudios.Forge.Networking
 				{
 					Logging.BMSLog.LogException(ex);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Checks all of the clients to see if any of them are timed out
+		/// </summary>
+		private void CheckClientTimeout()
+		{
+			List<NetworkingPlayer> timedoutPlayers = new List<NetworkingPlayer>();
+			while (IsBound)
+			{
+				IteratePlayers((player) =>
+				{
+					if (player.TimedOut())
+					{
+						timedoutPlayers.Add(player);
+					}
+				});
+
+				if (timedoutPlayers.Count > 0)
+				{
+					foreach (NetworkingPlayer player in timedoutPlayers)
+					{
+						Disconnect(player, true);
+						OnPlayerTimeout(player);
+						CleanupDisconnections();
+					}
+
+					timedoutPlayers.Clear();
+				}
+
+				// Wait a second before checking again
+				Thread.Sleep(1000);
 			}
 		}
 
@@ -644,13 +682,9 @@ namespace BeardedManStudios.Forge.Networking
 		/// Pong back to the client
 		/// </summary>
 		/// <param name="playerRequesting"></param>
-		protected override void Pong(NetworkingPlayer playerRequesting, System.DateTime time)
+		protected override void Pong(NetworkingPlayer playerRequesting, DateTime time)
 		{
-			BMSByte payload = new BMSByte();
-			long ticks = time.Ticks;
-			payload.BlockCopy<long>(ticks, sizeof(long));
-			Frame.Pong pongFrame = new Frame.Pong(Time.Timestep, false, payload, Receivers.Target, MessageGroupIds.PONG, true);
-			SendToPlayer(pongFrame, playerRequesting);
+			SendToPlayer(GeneratePong(time), playerRequesting);
 		}
 
 		public void StopAcceptingConnections()

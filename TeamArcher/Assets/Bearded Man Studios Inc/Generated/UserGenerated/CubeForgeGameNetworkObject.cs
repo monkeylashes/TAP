@@ -8,10 +8,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedInterpol("{\"inter\":[]")]
 	public partial class CubeForgeGameNetworkObject : NetworkObject
 	{
-		public const int IDENTITY = 2;
+		public const int IDENTITY = 4;
 
 		private byte[] _dirtyFields = new byte[0];
 
+		public event FieldChangedEvent fieldAltered;
 
 		protected override void OwnershipChanged()
 		{

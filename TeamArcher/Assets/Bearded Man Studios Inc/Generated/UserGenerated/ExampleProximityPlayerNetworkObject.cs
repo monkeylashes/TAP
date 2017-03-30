@@ -8,10 +8,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedInterpol("{\"inter\":[0.15]")]
 	public partial class ExampleProximityPlayerNetworkObject : NetworkObject
 	{
-		public const int IDENTITY = 3;
+		public const int IDENTITY = 5;
 
 		private byte[] _dirtyFields = new byte[1];
 
+		public event FieldChangedEvent fieldAltered;
 		private Vector3 _position;
 		public event FieldEvent<Vector3> positionChanged;
 		public InterpolateVector3 positionInterpolation = new InterpolateVector3() { LerpT = 0.15f, Enabled = true };
@@ -40,8 +41,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		private void RunChange_position(ulong timestep)
 		{
 			if (positionChanged != null) positionChanged(_position, timestep);
+			if (fieldAltered != null) fieldAltered("position", _position, timestep);
 		}
-
 
 		protected override void OwnershipChanged()
 		{
@@ -50,8 +51,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		
 		public void SnapInterpolations()
 		{
-			positionInterpolation.current = _position;
-			positionInterpolation.target = _position;
+			positionInterpolation.current = positionInterpolation.target;
 		}
 
 		public override int UniqueIdentity { get { return IDENTITY; } }

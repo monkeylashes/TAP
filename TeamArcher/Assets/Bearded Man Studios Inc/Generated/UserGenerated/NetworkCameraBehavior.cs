@@ -8,6 +8,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[]")]
 	public abstract partial class NetworkCameraBehavior : NetworkBehavior
 	{
+		
 		public NetworkCameraNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
@@ -42,13 +43,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		private void DestroyGameObject()
 		{
-			MainThreadManager.Run(() => { Destroy(gameObject); });
+			MainThreadManager.Run(() => { try { Destroy(gameObject); } catch { } });
 			networkObject.onDestroy -= DestroyGameObject;
 		}
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode)
 		{
 			return new NetworkCameraNetworkObject(networker, this, createCode);
+		}
+
+		protected override void InitializedTransform()
+		{
+			networkObject.SnapInterpolations();
 		}
 
 

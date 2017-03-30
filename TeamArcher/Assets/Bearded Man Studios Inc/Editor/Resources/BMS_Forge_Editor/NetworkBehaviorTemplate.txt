@@ -8,6 +8,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[>:generatedHelperTypes:<]")]
 	public abstract partial class >:className:< : NetworkBehavior
 	{
+		>:FOREACH constRpcs:<
+		public const byte RPC_>:[0]:< = >:[idx]:< + 5;
+		>:ENDFOREACH:<
+		
 		public >:networkObject:< networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
@@ -45,13 +49,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		private void DestroyGameObject()
 		{
-			MainThreadManager.Run(() => { Destroy(gameObject); });
+			MainThreadManager.Run(() => { try { Destroy(gameObject); } catch { } });
 			networkObject.onDestroy -= DestroyGameObject;
 		}
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode)
 		{
 			return new >:networkObject:<(networker, this, createCode);
+		}
+
+		protected override void InitializedTransform()
+		{
+			networkObject.SnapInterpolations();
 		}
 
 		>:FOREVERY rpcs:<

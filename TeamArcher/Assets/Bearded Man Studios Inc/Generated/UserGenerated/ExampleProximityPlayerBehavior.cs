@@ -8,6 +8,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[[\"color\"]]")]
 	public abstract partial class ExampleProximityPlayerBehavior : NetworkBehavior
 	{
+		public const byte RPC_SEND_COLOR = 0 + 5;
+		
 		public ExampleProximityPlayerNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
@@ -43,13 +45,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		private void DestroyGameObject()
 		{
-			MainThreadManager.Run(() => { Destroy(gameObject); });
+			MainThreadManager.Run(() => { try { Destroy(gameObject); } catch { } });
 			networkObject.onDestroy -= DestroyGameObject;
 		}
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode)
 		{
 			return new ExampleProximityPlayerNetworkObject(networker, this, createCode);
+		}
+
+		protected override void InitializedTransform()
+		{
+			networkObject.SnapInterpolations();
 		}
 
 		/// <summary>

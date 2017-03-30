@@ -8,6 +8,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[[\"username\", \"message\"]]")]
 	public abstract partial class ChatManagerBehavior : NetworkBehavior
 	{
+		public const byte RPC_SEND_MESSAGE = 0 + 5;
+		
 		public ChatManagerNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
@@ -43,13 +45,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		private void DestroyGameObject()
 		{
-			MainThreadManager.Run(() => { Destroy(gameObject); });
+			MainThreadManager.Run(() => { try { Destroy(gameObject); } catch { } });
 			networkObject.onDestroy -= DestroyGameObject;
 		}
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode)
 		{
 			return new ChatManagerNetworkObject(networker, this, createCode);
+		}
+
+		protected override void InitializedTransform()
+		{
+			networkObject.SnapInterpolations();
 		}
 
 		/// <summary>

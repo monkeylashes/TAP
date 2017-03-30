@@ -1,0 +1,88 @@
+Initialize engine version: 5.5.2f1 (3829d7f588f3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1080 (ID=0x1b80)
+    Vendor:   NVIDIA
+    VRAM:     8110 MB
+    Driver:   21.21.13.7878
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.VR.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.ClipperLib.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.ClipperLib.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.Poly2Tri.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Pathfinding.Poly2Tri.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ForgeNetworkingCommon.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ForgeNetworkingCommon.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ProBuilderCore-Unity5.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ProBuilderCore-Unity5.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ProBuilderMeshOps-Unity5.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\ProBuilderMeshOps-Unity5.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\KDTree.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\KDTree.dll into Unity Child Domain
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Triangle.dll (this message is harmless)
+Loading D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\Triangle.dll into Unity Child Domain
+- Completed reload, in  0.031 seconds
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\src\TAP\TeamArcher\BinVR\TAPVR_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 3840x2160 60Hz; virtual: 6600x3200 at 0,0
+<RI> Initialized touch support.
+OpenVR initialized!
+ 
+(Filename:  Line: 381)
+
+UnloadTime: 0.572209 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 328c -> priority: 1 
+  Thread -> id: 3b4 -> priority: 1 
+  Thread -> id: 16cc -> priority: 1 
+  Thread -> id: 169c -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.070851 ms
+Connected to lighthouse:LHR-33D018A1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[Valve Camera] Setting MSAA to 4x
+
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[Valve Camera] Adaptive Quality:
+1.  2177x2419 0.8
+2.  2335x2594 0.8579044
+3.  2504x2782 0.92
+4.  2685x2983 0.9865901
+5.  2879x3199 1.058 (Default)
+6.  3088x3430 1.134579
+7.  3311x3679 1.2167
+8.  3551x3945 1.304765
+
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1763.
+Total: 0.761409 ms (FindLiveObjects: 0.110558 ms CreateObjectMapping: 0.024933 ms MarkObjects: 0.593441 ms  DeleteObjects: 0.026749 ms)
+
+OpenVR Shutdown
+ 
+(Filename:  Line: 815)
+

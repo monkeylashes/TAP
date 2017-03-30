@@ -1,6 +1,7 @@
 ﻿namespace VRTK.Examples.Archery
 {
     using UnityEngine;
+    using BeardedManStudios.Forge.Networking.Unity;
 
     public class ArrowSpawner : MonoBehaviour
     {
@@ -20,7 +21,17 @@
             VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ? collider.gameObject.GetComponent<VRTK_InteractGrab>() : collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
             if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer)
             {
-                GameObject newArrow = Instantiate(arrowPrefab);
+                //GameObject newArrow = Instantiate(arrowPrefab);
+                GameObject newArrow = null;
+                if (arrowPrefab.name == "BasicArrow")
+                {
+                    newArrow = NetworkManager.Instance.InstantiateBasicArrow().gameObject;
+                }
+                else if (arrowPrefab.name == "TeleportArrow")
+                {
+                    newArrow = NetworkManager.Instance.InstantiateTeleportArrow().gameObject;
+                }
+                                
                 newArrow.name = "ArrowClone";
                 grabbingController.GetComponent<VRTK_InteractTouch>().ForceTouch(newArrow);
                 grabbingController.AttemptGrab();
