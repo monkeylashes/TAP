@@ -14,6 +14,7 @@ public class NetworkSpawn : MonoBehaviour {
         NetworkManager.Instance.InstantiateHead();
         NetworkManager.Instance.InstantiateLeftHand();
         NetworkManager.Instance.InstantiateRightHand();
+        NetworkManager.Instance.InstantiateBody();
     }
 	
 	// Update is called once per frame

@@ -31,6 +31,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new BasicBowNetworkObject(networker, id, frame);
 						break;
+					case BodyNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new BodyNetworkObject(networker, id, frame);
+						break;
 					case ChatManagerNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new ChatManagerNetworkObject(networker, id, frame);

@@ -37,7 +37,7 @@ Platform assembly: D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\KDTree.dll (this m
 Loading D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\KDTree.dll into Unity Child Domain
 Platform assembly: D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\Triangle.dll (this message is harmless)
 Loading D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\Triangle.dll into Unity Child Domain
-- Completed reload, in  0.031 seconds
+- Completed reload, in  0.262 seconds
 Platform assembly: D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\src\TAP\TeamArcher\Bin\TAP_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
@@ -48,12 +48,24 @@ OpenVR initialized!
  
 (Filename:  Line: 381)
 
-UnloadTime: 0.584292 ms
+UnloadTime: 0.601333 ms
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: 147c -> priority: 1 
-  Thread -> id: 15c0 -> priority: 1 
-  Thread -> id: ba0 -> priority: 1 
-  Thread -> id: 4494 -> priority: 1 
+  Thread -> id: 4224 -> priority: 1 
+  Thread -> id: 1934 -> priority: 1 
+  Thread -> id: 3bb8 -> priority: 1 
+  Thread -> id: 1e54 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.791905 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at VRTK.VRTK_SDKManager.SetupHeadset () [0x00000] in <filename unknown>:0 
+  at VRTK.VRTK_SDKManager.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1797.
+Total: 0.674387 ms (FindLiveObjects: 0.086253 ms CreateObjectMapping: 0.023396 ms MarkObjects: 0.538895 ms  DeleteObjects: 0.020533 ms)
+
 OpenVR Shutdown
  
 (Filename:  Line: 815)

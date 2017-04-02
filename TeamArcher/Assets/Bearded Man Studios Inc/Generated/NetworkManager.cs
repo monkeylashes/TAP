@@ -11,6 +11,7 @@ namespace BeardedManStudios.Forge.Networking.Unity
 
 		public GameObject[] BasicArrowNetworkObject = null;
 		public GameObject[] BasicBowNetworkObject = null;
+		public GameObject[] BodyNetworkObject = null;
 		public GameObject[] ChatManagerNetworkObject = null;
 		public GameObject[] CubeForgeGameNetworkObject = null;
 		public GameObject[] ExampleProximityPlayerNetworkObject = null;
@@ -60,6 +61,29 @@ namespace BeardedManStudios.Forge.Networking.Unity
 							if (BasicBowNetworkObject.Length > 0 && BasicBowNetworkObject[obj.CreateCode] != null)
 							{
 								var go = Instantiate(BasicBowNetworkObject[obj.CreateCode]);
+								newObj = go.GetComponent<NetworkBehavior>();
+							}
+						}
+
+						if (newObj == null)
+							return;
+						
+						newObj.Initialize(obj);
+
+						if (objectInitialized != null)
+							objectInitialized(newObj, obj);
+					});
+				}
+				else if (obj is BodyNetworkObject)
+				{
+					MainThreadManager.Run(() =>
+					{
+						NetworkBehavior newObj = null;
+						if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+						{
+							if (BodyNetworkObject.Length > 0 && BodyNetworkObject[obj.CreateCode] != null)
+							{
+								var go = Instantiate(BodyNetworkObject[obj.CreateCode]);
 								newObj = go.GetComponent<NetworkBehavior>();
 							}
 						}
@@ -294,6 +318,19 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			return netBehavior;
 		}
 
+		[Obsolete("Use InstantiateBody instead, its shorter and easier to type out ;)")]
+		public BodyBehavior InstantiateBodyNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(BodyNetworkObject[index]);
+			var netBehavior = go.GetComponent<NetworkBehavior>() as BodyBehavior;
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<BodyBehavior>().networkObject = (BodyNetworkObject)obj;
+
+			FinializeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+
 		[Obsolete("Use InstantiateChatManager instead, its shorter and easier to type out ;)")]
 		public ChatManagerBehavior InstantiateChatManagerNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
 		{
@@ -417,6 +454,18 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			var netBehavior = go.GetComponent<NetworkBehavior>() as BasicBowBehavior;
 			var obj = netBehavior.CreateNetworkObject(Networker, index);
 			go.GetComponent<BasicBowBehavior>().networkObject = (BasicBowNetworkObject)obj;
+
+			FinializeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+
+		public BodyBehavior InstantiateBody(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(BodyNetworkObject[index]);
+			var netBehavior = go.GetComponent<NetworkBehavior>() as BodyBehavior;
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<BodyBehavior>().networkObject = (BodyNetworkObject)obj;
 
 			FinializeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			
