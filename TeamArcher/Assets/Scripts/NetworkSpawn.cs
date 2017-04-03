@@ -7,8 +7,8 @@ public class NetworkSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        NetworkManager.Instance.InstantiateBasicArrow();
-        NetworkManager.Instance.InstantiateTeleportArrow();
+        //NetworkManager.Instance.InstantiateBasicArrow();
+        //NetworkManager.Instance.InstantiateTeleportArrow();
         NetworkManager.Instance.InstantiateBasicBow();
 
         NetworkManager.Instance.InstantiateHead();
